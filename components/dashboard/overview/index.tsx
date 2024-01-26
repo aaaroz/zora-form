@@ -32,7 +32,7 @@ const OverviewDashboard = async () => {
             <Separator />
             <div className="grid grid-cols-1 gap-2">
               <Suspense
-                fallback={[1, 2, 3, 4].map((i) => (
+                fallback={[1].map((i) => (
                   <FormCardSkeleton key={i} />
                 ))}
               >
