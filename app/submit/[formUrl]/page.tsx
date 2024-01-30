@@ -18,7 +18,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 export default async function SubmitFormPage({ params }: Props) {
-  const form = await getFormContentByUrl(params.formUrl);
+  const updateVisit = true;
+  const form = await getFormContentByUrl(params.formUrl, updateVisit);
   if (!form) throw new Error("Form not found!");
 
   const formContent = JSON.parse(form.content) as FormElementInstance[];
