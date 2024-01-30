@@ -5,7 +5,9 @@ export const ButtonAction = () => {
   return (
     <div className="flex flex-col items-center justify-center py-14">
       <div className="flex">
-        <Button variant="default">Get Started</Button>
+        <Button variant="default" className="px-5" asChild>
+          <Link href="/auth/login">Get started</Link>
+        </Button>
         <Button variant="link" asChild>
           <Link href="#features">Discover more &rarr; </Link>
         </Button>

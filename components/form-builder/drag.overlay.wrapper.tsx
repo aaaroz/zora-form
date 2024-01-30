@@ -2,9 +2,9 @@
 
 import { Active, DragOverlay, useDndMonitor } from "@dnd-kit/core";
 import { useState } from "react";
-import { SidebarButtonElementDragOverlay } from "./designer/sidebar.button.element";
 import { useDesigner } from "@/lib/hooks";
-import { FormElements } from "@/lib/types/form.elements";
+import { FormElements } from "@/lib/form.elements";
+import { SidebarButtonElementDragOverlay } from "./designer/sidebar.button.element.drag.overlay";
 
 const DragOverlayWrapper = () => {
   const { elements } = useDesigner();
@@ -22,6 +22,7 @@ const DragOverlayWrapper = () => {
   });
 
   let node = <div>No drag overlay</div>;
+
   const isSidebarButtonElement =
     draggedItem && draggedItem.data.current?.isDesignerButtonElement;
 
@@ -46,6 +47,7 @@ const DragOverlayWrapper = () => {
       );
     }
   }
+
   return <DragOverlay>{node}</DragOverlay>;
 };
 export default DragOverlayWrapper;

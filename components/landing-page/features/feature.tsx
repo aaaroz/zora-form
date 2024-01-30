@@ -24,7 +24,9 @@ const features = [
 export const FeatureWrapper = () => {
   return (
     <div className="bg-gradient-to-tl from-primary/5">
-      <h3 className="pl-10 text-2xl pb-2 font-bold border-b border-separate">Features</h3>
+      <h3 className="pl-10 text-2xl pb-2 font-bold border-b border-separate">
+        Features
+      </h3>
       {features.map((feature) => (
         <FeatureItem key={feature.title} {...feature} />
       ))}

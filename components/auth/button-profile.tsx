@@ -1,20 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { Button } from "../ui/button";
-import { useSession } from "next-auth/react";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "../ui/dropdown.menu";
-import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
 import Link from "next/link";
-import { ButtonLogout } from "./button-logout";
 import { usePathname } from "next/navigation";
-import { MdOutlinePerson, MdPersonOutline } from "react-icons/md";
+import { useSession } from "next-auth/react";
+import { MdPersonOutline } from "react-icons/md";
+
+import { Avatar, AvatarFallback, AvatarImage } from "../ui/avatar";
+import { Button } from "../ui/button";
+import { ButtonLogout } from "./button-logout";
+import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
+import { Separator } from "../ui/separator";
 
 export const ButtonProfile = () => {
   const session = useSession();
@@ -23,8 +19,8 @@ export const ButtonProfile = () => {
   const imageUrl = session.data?.user.image as string;
 
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
+    <Popover>
+      <PopoverTrigger asChild>
         <Button variant="ghost" size="icon">
           {imageUrl ? (
             <Image
@@ -38,8 +34,12 @@ export const ButtonProfile = () => {
             <MdPersonOutline className="w-6 h-6" />
           )}
         </Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" alignOffset={5}>
+      </PopoverTrigger>
+      <PopoverContent
+        align="end"
+        alignOffset={5}
+        className="p-2 min-w-[45dvh] max-w-[50dvh]"
+      >
         <div className="p-3 flex gap-3">
           <Avatar>
             <AvatarImage src={imageUrl} alt="z" />
@@ -51,7 +51,7 @@ export const ButtonProfile = () => {
             </AvatarFallback>
           </Avatar>
           <div className="flex flex-col">
-            <h1 className="text-sm md:text-base font-bold">
+            <h1 className="text-sm md:text-base font-bold line-clamp-2">
               Welcome, {session.data?.user?.name} !
             </h1>
             <p className="text-xs text-muted-foreground">
@@ -59,16 +59,16 @@ export const ButtonProfile = () => {
             </p>
           </div>
         </div>
-        <DropdownMenuSeparator />
-        {arrPathname[1] !== "users" && (
-          <DropdownMenuItem asChild>
-            <Link href="/users/dashboard">Dashboard</Link>
-          </DropdownMenuItem>
-        )}
-        <DropdownMenuItem>
+        <Separator className="my-3" />
+        <div className="flex flex-col gap-2">
+          {arrPathname[1] !== "users" && (
+            <Button size="sm">
+              <Link href="/users/dashboard">Dashboard</Link>
+            </Button>
+          )}
           <ButtonLogout />
-        </DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+        </div>
+      </PopoverContent>
+    </Popover>
   );
 };

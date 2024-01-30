@@ -1,17 +1,5 @@
 import { ElementType, FC } from "react";
 
-import { TextFieldFormElement } from "@/components/fields/text-field";
-import { TitleFieldFormElement } from "@/components/fields/title-field";
-import { SubTitleFieldFormElement } from "@/components/fields/sub-title-field";
-import { ParagraphFieldFormElement } from "@/components/fields/paragraph-field";
-import { SeparatorFieldFormElement } from "@/components/fields/separator-field";
-import { SpacingFieldFormElement } from "@/components/fields/spacing-field";
-import { NumberFieldFormElement } from "@/components/fields/number-field";
-import { TextAreaFieldFormElement } from "@/components/fields/textarea-field";
-import { DateFieldFormElement } from "@/components/fields/date-field";
-import { SelectFieldFormElement } from "@/components/fields/select-field";
-import { CheckboxFieldFormElement } from "@/components/fields/checkbox-field";
-
 export type TElements =
   | "TitleField"
   | "SubTitleField"
@@ -59,20 +47,6 @@ export type FormElementInstance = {
   extraAttributes?: Record<string, any>;
 };
 
-type TFormElements = {
+export type TFormElements = {
   [key in TElements]: FormElement;
-};
-
-export const FormElements: TFormElements = {
-  TextField: TextFieldFormElement,
-  TitleField: TitleFieldFormElement,
-  SubTitleField: SubTitleFieldFormElement,
-  ParagraphField: ParagraphFieldFormElement,
-  SeparatorField: SeparatorFieldFormElement,
-  SpacingField: SpacingFieldFormElement,
-  NumberField: NumberFieldFormElement,
-  TextAreaField: TextAreaFieldFormElement,
-  DateField: DateFieldFormElement,
-  SelectField: SelectFieldFormElement,
-  CheckboxField: CheckboxFieldFormElement,
 };

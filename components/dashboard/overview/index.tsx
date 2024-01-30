@@ -1,12 +1,12 @@
 import Link from "next/link";
 import { Suspense } from "react";
 
-import { Separator } from "@/components/ui/separator";
-import { OverviewContent } from "./overview.content";
-import { FormCardSkeleton } from "../forms/form.card.skeleton";
-import { FormCards } from "../forms/form.cards";
 import { Charts } from "./charts";
-import { getSubmissionsTotal } from "@/actions/form";
+import { FormCards } from "../forms/form.cards";
+import { FormCardSkeleton } from "../forms/form.card.skeleton";
+import { getSubmissionsTotal } from "@/actions";
+import { OverviewContent } from "./overview.content";
+import { Separator } from "@/components/ui/separator";
 
 const OverviewDashboard = async () => {
   const submissions = await getSubmissionsTotal();
@@ -19,7 +19,7 @@ const OverviewDashboard = async () => {
       </section>
       <section className="space-y-3">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-7">
-          <div className="col-span-5 space-y-3 md:p-2 border md:mx-3 rounded">
+          <div className="col-span-5 space-y-3 md:p-2 border md:mr-3 rounded">
             <Link href="/users/submissions">
               <h1 className="text-xl font-bold px-3">Submissions</h1>
             </Link>

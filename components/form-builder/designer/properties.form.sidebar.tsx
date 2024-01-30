@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
+import { FormElements } from "@/lib/form.elements";
 import { useDesigner } from "@/lib/hooks";
-import { FormElements } from "@/lib/types/form.elements";
 import { AiOutlineClose } from "react-icons/ai";
 
 export const PropertiesFormSidebar = () => {

@@ -1,12 +1,24 @@
+import { Metadata } from "next";
+
 import FormBuilder from "@/components/form-builder";
-import { getFormById } from "@/actions/form";
+import { getFormById } from "@/actions";
 import { Container } from "@/components/globals/container";
 
-export default async function FormBuilderPage({
-  params,
-}: {
+type Props = {
   params: { id: string };
-}) {
+};
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const id = params.id;
+
+  const form = await getFormById(Number(id));
+
+  return {
+    title: `${form?.name}` || "Form Builder",
+  };
+}
+
+export default async function FormBuilderPage({ params }: Props) {
   const { id } = params;
   const form = await getFormById(Number(id));
   if (!form) throw new Error("Form not found!");

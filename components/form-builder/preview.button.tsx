@@ -2,7 +2,7 @@ import { useDesigner } from "@/lib/hooks";
 import { Button } from "../ui/button";
 import { Dialog, DialogContent, DialogTrigger } from "../ui/dialog";
 import { MdPreview } from "react-icons/md";
-import { FormElements } from "@/lib/types/form.elements";
+import { FormElements } from "@/lib/form.elements";
 
 export const PreviewButton = () => {
   const { elements } = useDesigner();

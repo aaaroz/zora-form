@@ -129,7 +129,7 @@ export const PropertiesComponent = ({
           render={({ field }) => (
             <FormItem>
               <div className="flex justify-between items-center">
-                <FormLabel>Helper Text</FormLabel>
+                <FormLabel>Select Options</FormLabel>
                 <Button
                   variant="outline"
                   className="gap-2"
@@ -171,8 +171,7 @@ export const PropertiesComponent = ({
                 ))}
               </div>
               <FormDescription className="text-xs">
-                The helper text of the field. It will be displayed below the
-                field form.
+                The options of the field.
               </FormDescription>
             </FormItem>
           )}

@@ -16,8 +16,8 @@ import { Button } from "../ui/button";
 import { useTransition } from "react";
 import { toast } from "sonner";
 import { FaSpinner } from "react-icons/fa";
-import { publishForm } from "@/actions/form";
 import { useRouter } from "next/navigation";
+import { publishForm } from "@/actions";
 
 export const PublishButton = ({ id }: { id: number }) => {
   const [loading, startTransition] = useTransition();

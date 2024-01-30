@@ -1,4 +1,4 @@
-import { FormElements } from "@/lib/types/form.elements";
+import { FormElements } from "@/lib/form.elements";
 import { SidebarButtonElement } from "./sidebar.button.element";
 import { Separator } from "@/components/ui/separator";
 

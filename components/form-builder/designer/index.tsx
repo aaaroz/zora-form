@@ -1,13 +1,13 @@
 "use client";
 
-import { Separator } from "@/components/ui/separator";
 import { DesignerSidebar } from "./designer.sidebar";
 import { DragEndEvent, useDndMonitor, useDroppable } from "@dnd-kit/core";
 import { cn, idGenerator } from "@/lib/utils";
 import { useDesigner } from "@/lib/hooks";
 
 import { DesignerElementWrapper } from "./designer.element.wrapper";
-import { FormElements, TElements } from "@/lib/types/form.elements";
+import { TElements } from "@/lib/types/form.elements";
+import { FormElements } from "@/lib/form.elements";
 
 const Designer = () => {
   const {
@@ -87,6 +87,7 @@ const Designer = () => {
       const draggingDesignerElementOverAnotherDesignerElement =
         isDroppingOverDesignerElement && isDraggingDesignerElement;
 
+      // third scenario
       if (draggingDesignerElementOverAnotherDesignerElement) {
         const activeId = active.data?.current?.elementId;
         const overId = over.data?.current?.elementId;
@@ -113,6 +114,7 @@ const Designer = () => {
       }
     },
   });
+
   return (
     <div className="flex w-full h-full">
       <div

@@ -1,8 +1,8 @@
 "use client";
 
 import { ReactNode, useState } from "react";
-import { FormElementInstance } from "../../lib/types/form.elements";
 import { DesignerContext } from "@/lib/context/designer.context";
+import { FormElementInstance } from "@/lib/types/form.elements";
 
 export const DesignerContextProvider = ({
   children,
@@ -38,11 +38,9 @@ export const DesignerContextProvider = ({
       value={{
         elements,
         setElements,
-
         addElement,
         removeElement,
         updateElement,
-
         selectedElement,
         setSelectedElement,
       }}

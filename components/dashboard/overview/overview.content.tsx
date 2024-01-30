@@ -1,4 +1,4 @@
-import { getFormStats } from "@/actions/form";
+import { getFormStats } from "@/actions";
 import {
   Card,
   CardContent,

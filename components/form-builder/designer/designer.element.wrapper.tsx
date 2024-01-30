@@ -1,12 +1,13 @@
 "use client";
 
 import { useState } from "react";
-import { FormElementInstance, FormElements } from "@/lib/types/form.elements";
+import { FormElementInstance } from "@/lib/types/form.elements";
 import { useDraggable, useDroppable } from "@dnd-kit/core";
 import { Button } from "@/components/ui/button";
 import { BiSolidTrash } from "react-icons/bi";
 import { useDesigner } from "@/lib/hooks";
 import { cn } from "@/lib/utils";
+import { FormElements } from "@/lib/form.elements";
 
 export const DesignerElementWrapper = ({
   element,

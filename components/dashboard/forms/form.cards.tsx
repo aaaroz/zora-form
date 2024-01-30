@@ -1,4 +1,4 @@
-import { getForms } from "@/actions/form";
+import { getForms } from "@/actions";
 import { FormCard } from "./form.card";
 import { Card } from "@/components/ui/card";
 

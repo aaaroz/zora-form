@@ -1,8 +1,7 @@
-import { format, formatDistance } from "date-fns";
-import { ReactNode } from "react";
+"use client";
 
-import { getFormWithSubmissions } from "@/actions/form";
-import { Separator } from "@/components/ui/separator";
+import { Badge } from "@/components/ui/badge";
+import { Checkbox } from "@/components/ui/checkbox";
 import {
   Table,
   TableBody,
@@ -11,101 +10,86 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
-import { FormElementInstance, TElements } from "@/lib/types/form.elements";
-import { Badge } from "@/components/ui/badge";
-import { Checkbox } from "@/components/ui/checkbox";
+import { TElements } from "@/lib/types/form.elements";
+import { format, formatDistance } from "date-fns";
+import { ReactNode, useRef, useState } from "react";
+import type { Columns, Row } from "./submissions";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { useDownloadExcel } from "react-export-table-to-excel";
+import { Label } from "@/components/ui/label";
+import { PaginationTable } from "./pagination.table";
 
-type Row = {
-  [key: string]: string;
-} & {
-  submittedAt: Date;
-};
+interface Props {
+  columns: Columns[];
+  rows: Row[];
+}
+export const SubmissionsTable = ({ columns, rows }: Props) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const submissionPerPage = 10;
 
-export const SubmissionsTable = async ({ id }: { id: number }) => {
-  const form = await getFormWithSubmissions(id);
-  if (!form) {
-    throw new Error("Form not found!");
-  }
-
-  const formElements = JSON.parse(form.content) as FormElementInstance[];
-  const columns: {
-    id: string;
-    label: string | undefined;
-    required: boolean;
-    type: TElements;
-  }[] = [];
-
-  formElements.forEach((element) => {
-    switch (element.type) {
-      case "TextField":
-      case "NumberField":
-      case "TextAreaField":
-      case "DateField":
-      case "SelectField":
-      case "CheckboxField":
-        columns.push({
-          id: element.id,
-          label: element.extraAttributes?.label,
-          required: element.extraAttributes?.required,
-          type: element.type,
-        });
-        break;
-      default:
-        break;
-    }
+  const submissionRef = useRef(null);
+  const { onDownload } = useDownloadExcel({
+    currentTableRef: submissionRef.current,
+    filename: "Submissions table",
+    sheet: "Submissions",
   });
 
-  const rows: Row[] = [];
-  form.FormSubmissions.forEach((submission) => {
-    const content = JSON.parse(submission.content);
-    rows.push({
-      ...content,
-      submittedAt: submission.createdAt,
-    });
-  });
+  const lastPostIndex = currentPage * submissionPerPage;
+  const firstPostIndex = lastPostIndex - submissionPerPage;
+  const currentSubmissions = rows.slice(firstPostIndex, lastPostIndex);
   return (
-    <div className="py-4 space-y-2">
-      <h1 className="text-2xl font-bold">Form Submissions</h1>
-      <Separator />
-      <div className="rounded-md border">
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="uppercase">No</TableHead>
-              {columns.map((column) => (
-                <TableHead key={column.id} className="uppercase">
-                  {column.label}
-                </TableHead>
-              ))}
-              <TableHead className="text-muted-foreground text-right uppercase">
-                Submitted at
-              </TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {rows.map((row, index) => (
-              <TableRow key={index}>
-                <TableCell className="text-foreground text-center">
-                  {index + 1}
-                </TableCell>
-                {columns.map((column) => (
-                  <RowCell
-                    key={column.id}
-                    type={column.type}
-                    value={row[column.id]}
-                  />
-                ))}
-                <TableCell className="text-muted-foreground text-right">
-                  {formatDistance(row.submittedAt, new Date(), {
-                    addSuffix: true,
-                  })}
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
+    <>
+      <div className="my-3 flex justify-between flex-wrap">
+        <h1 className="text-2xl font-bold">Form Submissions</h1>
+        <Button
+          variant="default"
+          size="sm"
+          className="px-5"
+          onClick={onDownload}
+        >
+          Export to .xls
+        </Button>
       </div>
-    </div>
+      <Separator />
+      <Table ref={submissionRef} className="border rounded">
+        <TableHeader>
+          <TableRow>
+            {columns.map((column) => (
+              <TableHead key={column.id} className="uppercase">
+                {column.label}
+              </TableHead>
+            ))}
+            <TableHead className="text-muted-foreground text-right uppercase">
+              Submitted at
+            </TableHead>
+          </TableRow>
+        </TableHeader>
+        <TableBody>
+          {currentSubmissions.map((row, index) => (
+            <TableRow key={index}>
+              {columns.map((column) => (
+                <RowCell
+                  key={column.id}
+                  type={column.type}
+                  value={row[column.id]}
+                />
+              ))}
+              <TableCell className="text-muted-foreground text-right">
+                {formatDistance(row.submitted_at, new Date(), {
+                  addSuffix: true,
+                })}
+              </TableCell>
+            </TableRow>
+          ))}
+        </TableBody>
+      </Table>
+      <PaginationTable
+        totalPages={Math.ceil(rows.length / submissionPerPage)}
+        currentPage={currentPage}
+        setCurrentPage={setCurrentPage}
+      />
+    </>
   );
 };
 
@@ -121,10 +105,14 @@ const RowCell = ({ type, value }: { type: TElements; value: string }) => {
     case "CheckboxField":
       const checked = value === "true";
       node = (
-        <Checkbox
-          checked={checked}
-          className="cursor-default pointer-events-none"
-        />
+        <div className="flex items-center gap-2">
+          <Label htmlFor="checkbox">{checked ? "Checked" : "Unchecked"}</Label>
+          <Checkbox
+            id="checkbox"
+            checked={checked}
+            className="cursor-default pointer-events-none"
+          />
+        </div>
       );
       break;
   }

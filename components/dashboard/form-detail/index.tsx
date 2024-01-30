@@ -7,7 +7,7 @@ import { EyeIcon } from "lucide-react";
 import { FaWpforms } from "react-icons/fa";
 import { HiCursorClick } from "react-icons/hi";
 import { TbArrowBounce } from "react-icons/tb";
-import { SubmissionsTable } from "../submissions/submissions.table";
+import { Submissions } from "../submissions/submissions";
 
 const FormDetail = ({ form, id }: { form: Form; id: string }) => {
   const { visits, submissions } = form;
@@ -63,7 +63,7 @@ const FormDetail = ({ form, id }: { form: Form; id: string }) => {
         />
       </div>
 
-      <SubmissionsTable id={Number(id)} />
+      <Submissions id={Number(id)} />
     </div>
   );
 };
