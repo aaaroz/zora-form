@@ -2,12 +2,11 @@
 import { FormElementInstance } from "@/lib/types/form.elements";
 import { Button } from "../ui/button";
 import { FaPaperPlane } from "react-icons/fa";
-import { useRef, useState, useTransition } from "react";
+import { useCallback, useRef, useState, useTransition } from "react";
 import { toast } from "sonner";
 import { ImSpinner2 } from "react-icons/im";
 import { submitForm } from "@/actions";
 import { FormElements } from "@/lib/form.elements";
-import { validateForm } from "@/lib/validate.form";
 
 const FormSubmitComponent = ({
   formUrl,
@@ -28,9 +27,19 @@ const FormSubmitComponent = ({
     formValues.current[key] = value;
   };
 
+  const validateForm: () => boolean = useCallback(() => {
+    for (const field of content) {
+      const actualValue = formValues.current[field.id] || "";
+      const isValid = FormElements[field.type].validate(field, actualValue);
+      if (!isValid) formErrors.current[field.id] = true;
+    }
+    if (Object.keys(formErrors.current).length > 0) return false;
+    return true;
+  }, [content, formErrors, formValues]);
+
   const handleSubmit = async () => {
     formErrors.current = {};
-    const formIsValid = validateForm(content, formValues, formErrors);
+    const formIsValid = validateForm();
     if (!formIsValid) {
       setRenderKey(Math.random());
       toast.error("Form is invalid");
