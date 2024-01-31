@@ -62,7 +62,7 @@ export const ButtonProfile = () => {
         <Separator className="my-3" />
         <div className="flex flex-col gap-2">
           {arrPathname[1] !== "users" && (
-            <Button size="sm">
+            <Button size="sm" asChild>
               <Link href="/users/dashboard">Dashboard</Link>
             </Button>
           )}

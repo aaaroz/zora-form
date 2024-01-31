@@ -8,18 +8,20 @@ import {
   CardHeader,
 } from "@/components/ui/card";
 
-const CardRequestWrapper = () => {
+const CardError = () => {
   return (
     <div className="flex flex-col items-center">
       <Card className="pt-20 flex flex-col w-full max-w-[55dvh] border-none">
         <CardHeader className="flex items-center gap-5">
           <Logo className="p-3 rounded border-2 border-primary" />
-          <h1 className="font-semibold text-2xl">Email Verification Sent!</h1>
+          <h1 className="font-semibold text-2xl">Authentication Error!</h1>
         </CardHeader>
         <CardContent className="px-0 py-7 space-y-1 text-center text-sm">
           <p className="py-5">
-            Please check your email inbox for a link we sent. Didn{"'"}t receive
-            it? Check your spam, or click this link below to try again.
+            <strong>Whoopsie!</strong> Looks like your sign-in link took an
+            extended coffee break. No worries, you can{" "}
+            <strong>try again to sign in</strong>. Thanks for your understanding
+            and happy signing in!
           </p>
           <Button size="sm" className="w-full text-sm" asChild>
             <Link href="/auth/login">Try again</Link>
@@ -38,4 +40,4 @@ const CardRequestWrapper = () => {
   );
 };
 
-export default CardRequestWrapper;
+export default CardError;

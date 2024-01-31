@@ -19,6 +19,13 @@ import { Separator } from "@/components/ui/separator";
 import { useDownloadExcel } from "react-export-table-to-excel";
 import { Label } from "@/components/ui/label";
 import { PaginationTable } from "./pagination.table";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { TooltipArrow } from "@radix-ui/react-tooltip";
 
 interface Props {
   columns: Columns[];
@@ -52,43 +59,63 @@ export const SubmissionsTable = ({ columns, rows }: Props) => {
         </Button>
       </div>
       <Separator />
-      <Table ref={submissionRef} className="border rounded">
-        <TableHeader>
-          <TableRow>
-            {columns.map((column) => (
-              <TableHead key={column.id} className="uppercase">
-                {column.label}
-              </TableHead>
-            ))}
-            <TableHead className="text-muted-foreground text-right uppercase">
-              Submitted at
-            </TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {currentSubmissions.map((row, index) => (
-            <TableRow key={index}>
-              {columns.map((column) => (
-                <RowCell
-                  key={column.id}
-                  type={column.type}
-                  value={row[column.id]}
-                />
+      {rows.length ? (
+        <TooltipProvider>
+          <Table ref={submissionRef} className="border rounded">
+            <TableHeader>
+              <TableRow>
+                {columns.map((column) => (
+                  <>
+                    <Tooltip delayDuration={0}>
+                      <TableHead
+                        key={column.id}
+                        className="capitalize max-w-max"
+                      >
+                        <TooltipTrigger className="text-left cursor-text capitalize max-w-max px-1">
+                          <h3 className="md:line-clamp-1">{column.label}</h3>
+                        </TooltipTrigger>
+                        <TooltipContent>{column.label}</TooltipContent>
+                      </TableHead>
+                    </Tooltip>
+                  </>
+                ))}
+                <TableHead>
+                  <span className="text-muted-foreground text-right capitalize truncate">
+                    submitted at
+                  </span>
+                </TableHead>
+              </TableRow>
+            </TableHeader>
+            <TableBody>
+              {currentSubmissions.map((row, index) => (
+                <TableRow key={index}>
+                  {columns.map((column) => (
+                    <RowCell
+                      key={column.id}
+                      type={column.type}
+                      value={row[column.id]}
+                    />
+                  ))}
+                  <TableCell className="text-muted-foreground text-right">
+                    {formatDistance(row.submitted_at, new Date(), {
+                      addSuffix: true,
+                    })}
+                  </TableCell>
+                </TableRow>
               ))}
-              <TableCell className="text-muted-foreground text-right">
-                {formatDistance(row.submitted_at, new Date(), {
-                  addSuffix: true,
-                })}
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
-      <PaginationTable
-        totalPages={Math.ceil(rows.length / submissionPerPage)}
-        currentPage={currentPage}
-        setCurrentPage={setCurrentPage}
-      />
+            </TableBody>
+          </Table>
+        </TooltipProvider>
+      ) : (
+        <div className="text-center">No submissions yet</div>
+      )}
+      {rows.length ? (
+        <PaginationTable
+          totalPages={Math.ceil(rows.length / submissionPerPage)}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      ) : null}
     </>
   );
 };

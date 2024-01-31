@@ -126,9 +126,10 @@ const AuthForm = () => {
         </CardContent>
         <CardFooter>
           <p className="text-xs text-center">
-            By clicking {"“"}Continue{"”"} above, you acknowledge that you have
-            read and understood, and agree to Z-form{"'"}s Terms of Use and
-            Privacy Policy.
+            Ready to roll with Z-form? Hit "Continue" to show you're on board
+            with our Terms of Use and Privacy Policy. It's like a friendly
+            handshake, but in the digital world! 🤝 Let's keep it simple and
+            fun!
           </p>
         </CardFooter>
       </Card>

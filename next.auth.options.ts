@@ -40,10 +40,6 @@ export const authOptions: AuthOptions = {
     }),
     EmailProvider({
       async sendVerificationRequest({ identifier: email, url }) {
-        // await sendVerificationRequest({
-        //   identifier: email,
-        //   url,
-        // });
         await sendEmail({ identifier: email, url });
       },
     }),
@@ -80,6 +76,7 @@ export const authOptions: AuthOptions = {
     signIn: "/auth/login",
     signOut: "/",
     verifyRequest: "/auth/verify-request",
+    error: "/auth/error",
   },
 
   secret: process.env.NEXTAUTH_SECRET,
