@@ -1,11 +1,11 @@
 "use client";
-import { IoMdWarning } from "react-icons/io";
-import { Button } from "../ui/button";
+
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+
+import { Button } from "../ui/button";
 import { Card, CardContent, CardFooter, CardHeader } from "../ui/card";
 import { Logo } from "../globals/logo";
-import Link from "next/link";
-import { Separator } from "../ui/separator";
 
 const NotFound = () => {
   const router = useRouter();
@@ -19,10 +19,10 @@ const NotFound = () => {
         <CardContent className="px-0 py-4 space-y-2 text-center text-sm">
           <h3 className="text-xl font-semibold">Whoopsie!</h3>
           <p className="py-3">
-            The page you're looking for seems to be taking a break. Our team is
-            on it, trying to reunite you. While we work our magic, feel free to
-            explore other parts of our site. If you need assistance, our support
-            team is here to help.
+            The page you{"'"}re looking for seems to be taking a break. Our team
+            is on it, trying to reunite you. While we work our magic, feel free
+            to explore other parts of our site. If you need assistance, our
+            support team is here to help.
           </p>
           <Button
             size="sm"

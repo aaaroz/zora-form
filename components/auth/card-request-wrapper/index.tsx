@@ -27,10 +27,10 @@ const CardRequestWrapper = () => {
         </CardContent>
         <CardFooter>
           <p className="text-xs text-center">
-            Ready to roll with Z-form? Hit "Try again" to show you're on board
-            with our Terms of Use and Privacy Policy. It's like a friendly
-            handshake, but in the digital world! 🤝 Let's keep it simple and
-            fun!
+            Ready to roll with Z-form? Hit {'"'}Try again{'"'} to show you{"'"}
+            re on board with our Terms of Use and Privacy Policy. It{"'"}s like
+            a friendly handshake, but in the digital world! 🤝 Let{"'"}s keep it
+            simple and fun!
           </p>
         </CardFooter>
       </Card>
