@@ -65,19 +65,14 @@ export const SubmissionsTable = ({ columns, rows }: Props) => {
             <TableHeader>
               <TableRow>
                 {columns.map((column) => (
-                  <>
-                    <Tooltip delayDuration={0}>
-                      <TableHead
-                        key={column.id}
-                        className="capitalize max-w-max"
-                      >
-                        <TooltipTrigger className="text-left cursor-text capitalize max-w-max px-1">
-                          <h3 className="md:line-clamp-1">{column.label}</h3>
-                        </TooltipTrigger>
-                        <TooltipContent>{column.label}</TooltipContent>
-                      </TableHead>
-                    </Tooltip>
-                  </>
+                  <Tooltip delayDuration={0} key={column.id}>
+                    <TableHead key={column.id} className="capitalize max-w-max">
+                      <TooltipTrigger className="text-left cursor-text capitalize max-w-max px-1">
+                        <h3 className="md:line-clamp-1">{column.label}</h3>
+                      </TooltipTrigger>
+                      <TooltipContent>{column.label}</TooltipContent>
+                    </TableHead>
+                  </Tooltip>
                 ))}
                 <TableHead>
                   <span className="text-muted-foreground text-right capitalize truncate">
